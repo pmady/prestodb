@@ -25,10 +25,16 @@ RUN yum update -y \
 && echo 'com.facebook.presto=INFO' > /opt/presto/current/etc/log.properties \
 && echo 'access-control.name=read-only' > /opt/presto/current/etc/access-control.properties
 
-COPY ${TYPE}-etc/ /opt/presto/current/etc/
+ENV PRESTO_HOME /opt/presto/current
+
+COPY ${TYPE}-etc/ ${HOME}/etc/
 COPY ./entrypoint.sh /entrypoint.sh
+# adding the config mounting point
+VOLUME $HOME/etc/
+# adding the data mounting point
+VOLUME $HOME/data/
 
 EXPOSE 8080
 ENTRYPOINT ["bash", "/entrypoint.sh"]
-#ENTRYPOINT ["/opt/presto/current/bin/launcher", "run"]
+#ENTRYPOINT ["$HOME/bin/launcher", "run"]
 
