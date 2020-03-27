@@ -26,5 +26,7 @@ COPY etc/jvm.config /opt/presto/current/etc/jvm.config
 COPY etc/node.properties /opt/presto/current/etc/node.properties
 COPY files/presto.service /etc/systemd/system/presto.service
 COPY ./entrypoint.sh /entrypoint.sh
+
+EXPOSE 8080
 ENTRYPOINT ["bash", "/entrypoint.sh"]
 #ENTRYPOINT ["/opt/presto/current/bin/launcher", "run"]
