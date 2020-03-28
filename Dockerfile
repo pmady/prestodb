@@ -27,7 +27,7 @@ RUN yum update -y \
 
 ENV PRESTO_HOME /opt/presto/current
 
-COPY ${TYPE}-etc/ ${HOME}/etc/
+COPY ${TYPE}/etc/ ${HOME}/etc/
 COPY ./entrypoint.sh /entrypoint.sh
 # adding the config mounting point
 VOLUME $HOME/etc/
