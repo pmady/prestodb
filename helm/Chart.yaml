@@ -1,0 +1,12 @@
+apiVersion: v1
+appVersion: "0.196"
+description: Distributed SQL query engine for running interactive analytic queries
+home: https://prestodb.io
+icon: https://prestodb.io/static/presto.png
+maintainers:
+- email: pavan4devops@gmail.com
+  name: pavan
+name: presto
+sources:
+- https://github.com/facebook/presto
+version: 0.1.1
