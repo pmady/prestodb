@@ -8,7 +8,7 @@ server:
     coolDownDelayInSecs: 30
   node:
     environment: production
-    dataDir: /presto/etc/data
+    dataDir: /opt/presto/data
   log:
     presto:
       level: INFO
