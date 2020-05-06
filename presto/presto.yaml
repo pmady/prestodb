@@ -1,0 +1,88 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: presto
+spec:
+  ports:
+    - port: 8080
+  selector:
+    app: presto-coordinator
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: presto-coordinator
+spec:
+  selector:
+    matchLabels:
+      app: presto-coordinator
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: presto-coordinator
+    spec:
+      containers:
+        - name: metastore
+          image: pmady7389/prestosql
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: presto-cfg-vol
+              mountPath: opt/presto-server/etc/config.properties
+              subPath: config.properties.coordinator
+            - name: presto-cfg-vol
+              mountPath: /opt/presto-server/etc/node.properties.template
+              subPath: node.properties.template
+          command: ['/opt/autoconfig_and_launch.sh']
+          resources:
+            requests:
+              memory: "16G"
+              cpu: 4
+          imagePullPolicy: Always
+      volumes:
+        - name: presto-cfg-vol
+          configMap:
+            name: presto-cfg
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: presto-worker
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: presto-worker
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: presto-worker
+    spec:
+      containers:
+        - name: metastore
+          image: pmady7389/prestosql
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: presto-cfg-vol
+              mountPath: opt/presto-server/etc/config.properties
+              subPath: config.properties.worker
+            - name: presto-cfg-vol
+              mountPath: /opt/presto-server/etc/node.properties.template
+              subPath: node.properties.template
+          command: ['/opt/autoconfig_and_launch.sh']
+          resources:
+            requests:
+              memory: "16G"
+              cpu: 4
+          imagePullPolicy: Always
+      volumes:
+        - name: presto-cfg-vol
+          configMap:
+            name: presto-cfg
+
