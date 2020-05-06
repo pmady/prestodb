@@ -42,7 +42,7 @@ spec:
           resources:
             requests:
               memory: "16G"
-              cpu: 4
+              cpu: 1
           imagePullPolicy: Always
       volumes:
         - name: presto-cfg-vol
@@ -82,7 +82,7 @@ spec:
           resources:
             requests:
               memory: "16G"
-              cpu: 4
+              cpu: 1
           imagePullPolicy: Always
       volumes:
         - name: presto-cfg-vol

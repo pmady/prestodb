@@ -13,3 +13,4 @@ docker push $REPONAME/prestosql
 
 # Update configMap in Kubernetes
 kubectl create configmap presto-cfg --dry-run --from-file=config.properties.coordinator --from-file=config.properties.worker --from-file=node.properties.template --namespace=pavan -o yaml | kubectl apply -f -
+kubectl apply -f presto.yaml
