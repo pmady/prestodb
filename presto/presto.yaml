@@ -3,6 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: presto
+  namespace: pavan
 spec:
   ports:
     - port: 8080
@@ -13,6 +14,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: presto-coordinator
+  namespace: pavan
 spec:
   selector:
     matchLabels:
@@ -51,8 +53,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: presto-worker
+  namespace: pavan
 spec:
-  replicas: 5
+  replicas: 2
   selector:
     matchLabels:
       app: presto-worker
