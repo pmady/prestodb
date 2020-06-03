@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "presto.catalog" . }}
+  namespace: {{ .Values.server.namespace }}
+  labels:
+    app: {{ template "presto.name" . }}
+    chart: {{ template "presto.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    component: catalog
+data:
+  
+  mongo.properties: |
+    connector.name=mongodb
+    mongodb.seeds={{ .Values.server.config.catalog.host }}:{{ .Values.server.config.catalog.port}}
+
+---
