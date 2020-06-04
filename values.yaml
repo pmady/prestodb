@@ -21,7 +21,7 @@ server:
       maxMemory: "9GB"
       maxMemoryPerNode: "2GB"
     catalog:
-      host: 127.0.0.1
+      host: 35.165.95.187
       port: 27017
   jvm:
     maxHeapSize: "10G"  # "-Xmx10G" "-XX:MaxRAMPercentage=80"
