@@ -4,11 +4,11 @@ metadata:
   name: {{ template "presto.catalog" . }}
   namespace: {{ .Values.server.namespace }}
   labels:
-    app: {{ template "presto.name" . }}
+    app: presto
     chart: {{ template "presto.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-    component: catalog
+    component: presto-catalog
 data:
   
   mongo.properties: |

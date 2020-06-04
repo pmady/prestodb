@@ -5,11 +5,11 @@ metadata:
   name: {{ template "presto.worker" . }}
   namespace: {{ .Values.server.namespace }}
   labels:
-    app: {{ template "presto.name" . }}
+    app: presto
     chart: {{ template "presto.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-    component: worker
+    component: presto-worker
 data:
   node.properties: |
     node.environment={{ .Values.server.node.environment }}

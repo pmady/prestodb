@@ -3,7 +3,8 @@ kind: Service
 metadata:
   name: {{ template "presto.fullname" . }}
   labels:
-    app: {{ template "presto.name" . }}
+    app: presto
+    presto: coordinator
     chart: {{ template "presto.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -16,6 +17,55 @@ spec:
       protocol: TCP
       name: http-coord
   selector:
-    app: {{ template "presto.name" . }}
+    app: presto
     release: {{ .Release.Name }}
-    component: coordinator
+    component: presto-coordinator
+    presto: coordinator
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "presto.fullname" . }}
+  labels:
+    app: presto
+    presto: worker
+    chart: {{ template "presto.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  namespace: {{ .Values.server.namespace }}
+spec:
+  ports:
+    - port: {{ .Values.server.config.http.port }}
+      targetPort: http-coord
+      protocol: TCP
+      name: http-coord
+  selector:
+    app: presto
+    release: {{ .Release.Name }}
+    component: presto-coordinator
+    presto: worker
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: presto-nodes
+  labels:
+    app: presto
+    chart: {{ template "presto.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  namespace: {{ .Values.server.namespace }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.server.config.http.port }}
+      targetPort: http-coord
+      protocol: TCP
+      name: http-coord
+  selector:
+    app: presto
+    release: {{ .Release.Name }}
