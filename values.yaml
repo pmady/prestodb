@@ -31,7 +31,7 @@ server:
         heapRegionSize: "32M"
     reservedCache: "512M"
     maxCachedBufferSize: "2000000"
-  namespace: presto
+  namespace: default
 
 image:
   repository: registry.gitlab.com/pmady/prestosql
@@ -47,11 +47,11 @@ resources:
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   limits:
-    cpu: 3.5
-    memory: 12Gi
+    cpu: 0.5
+    memory: 1Gi
   requests:
-    cpu: 3.5
-    memory: 12Gi
+    cpu: 0.5
+    memory: 1Gi
 
 nodeSelector: {}
 
