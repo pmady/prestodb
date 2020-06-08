@@ -1,16 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "presto.fullname" . }}
+  name: presto
   labels:
     app: presto
     presto: coordinator
     chart: {{ template "presto.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-  namespace: {{ .Values.server.namespace }}
 spec:
-  type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.server.config.http.port }}
       targetPort: http-coord
@@ -27,14 +25,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "presto.fullname" . }}
+  name: presto-worker
   labels:
     app: presto
     presto: worker
     chart: {{ template "presto.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-  namespace: {{ .Values.server.namespace }}
 spec:
   ports:
     - port: {{ .Values.server.config.http.port }}
@@ -58,8 +55,8 @@ metadata:
     chart: {{ template "presto.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-  namespace: {{ .Values.server.namespace }}
 spec:
+  clusterIP: None
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.server.config.http.port }}

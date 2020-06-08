@@ -2,11 +2,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "presto.worker" . }}
-  namespace: {{ .Values.server.namespace }}
+  name: presto-worker
   labels:
     app: presto
-    presto: coordinator
+    presto: worker
     chart: {{ template "presto.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -22,14 +21,12 @@ spec:
   selector:
     matchLabels:
       app: presto
-      presto: coordinator
       release: {{ .Release.Name }}
       component: presto-worker
   template:
     metadata:
       labels:
         app: presto
-        presto: coordinator
         release: {{ .Release.Name }}
         component: presto-worker
     spec:

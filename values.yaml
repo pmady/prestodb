@@ -21,7 +21,7 @@ server:
       maxMemory: "9GB"
       maxMemoryPerNode: "2GB"
     catalog:
-      host: 35.165.95.187
+      host: 34.210.97.175
       port: 27017
   jvm:
     maxHeapSize: "10G"  # "-Xmx10G" "-XX:MaxRAMPercentage=80"
@@ -31,8 +31,7 @@ server:
         heapRegionSize: "32M"
     reservedCache: "512M"
     maxCachedBufferSize: "2000000"
-  namespace: default
-
+  namespace: testing
 image:
   repository: registry.gitlab.com/pmady/prestosql
   tag: latest # jdk11  latest
